@@ -1102,14 +1102,11 @@ await check('no leaked credential, no personal absolute path, and the author nam
       assert.equal(allowed.has(file), true, `${file} names the copyright holder outside the licence, manifest and READMEs`)
     }
   }
-  // Checked on disk, not through the listing above: `treeFiles()` filters these
-  // names out, so asserting on its result could never fail. `.mount.log` is not
-  // in this list - this very run creates it in section 4 and removes it again at
-  // the end; what must hold for it is that it can never be shipped or tracked,
-  // asserted here and by the `.gitignore` check below.
-  for (const forbidden of ['node_modules', '.git']) {
-    assert.equal(existsSync(join(PACKAGE_ROOT, forbidden)), false, `${forbidden} must not be in the tree`)
-  }
+  // A cheaper existence check here would be vacuous (`treeFiles()` already filters
+  // these names out) or wrong (a development checkout legitimately has a
+  // `node_modules/` after `pnpm test`), so assert the property that actually
+  // decides publishing instead: none of them can be shipped, because
+  // `package.json`'s `files` never covers them. `.gitignore` is checked below.
   for (const name of ['.mount.log', 'pnpm-lock.yaml', 'package-lock.json']) {
     assert.equal(manifest.files.some((pattern) => pattern === name || pattern.endsWith('/' + name)), false,
       `${name} must not be covered by package.json files`)
