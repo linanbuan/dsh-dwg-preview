@@ -1,0 +1,73 @@
+{
+  "name": "@local/dsh-dwg-preview",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "侧边栏 DWG/DXF 预览：宿主侧用 LibreDWG(WASM) 把 DWG 转成 DXF 并渲染为矢量 SVG，客户端在文档预览标签里显示。 A DSH sidebar preview for DWG/DXF drawings: the host half decodes DWG with LibreDWG (WASM) and renders vector SVG, the browser half shows it in the document preview tab.",
+  "icon": "./icon.svg",
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "deepseek",
+    "dwg",
+    "dxf",
+    "cad",
+    "svg",
+    "document-preview",
+    "libredwg"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linanbuan/dsh-dwg-preview.git"
+  },
+  "homepage": "https://github.com/linanbuan/dsh-dwg-preview",
+  "bugs": {
+    "url": "https://github.com/linanbuan/dsh-dwg-preview/issues"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json",
+    "./icon.svg": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "lib/*.mjs",
+    "icon.svg",
+    "docs/*.svg",
+    "test/*.mjs",
+    "test/sample.dxf",
+    "tools/*.mjs",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/selfcheck.mjs",
+    "example": "node tools/make-example.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar-documentpreview"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "dependencies": {
+    "@mlightcad/libredwg-web": "^0.7.14"
+  }
+}

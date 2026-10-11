@@ -1,0 +1,11 @@
+# DWG / DXF sidebar preview bundle patch.
+#
+# One insert over the profile entry list: the host half mounts there and registers
+# the /api/dwg-preview routes; its dsh.client declaration pulls the browser half in.
+#
+#   - id: dwg-preview
+#     disabled: true
+
+- insert:
+    - id: dwg-preview
+      name: '@local/dsh-dwg-preview'
